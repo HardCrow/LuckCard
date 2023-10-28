@@ -209,10 +209,10 @@ class LuckApplicationTests {
         Admin admin = new Admin();
         admin.setAccount("huang");
         Goods goods = new Goods();
-        goods.setGoodsName("test02");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
+        goods.setGoodsName("test04");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
         //现在testlist好像没什么用，因为我不用list去存储数据了
-        userService.AddCard(admin,4,goods,"testList");
-        userService.AddCard(admin,4,goods,"testList");
+        userService.AddCard(admin,9,goods,"test04");
+        //userService.AddCard(admin,4,goods,"testList");
     }
     @Test
     void  FunTestController02(){
@@ -232,11 +232,20 @@ class LuckApplicationTests {
     @Test
     void FunTestUserService01(){
         User user = new User();
-        user.setUserAccount("huang02");
+        user.setUserAccount("huang04");
         Goods goods = new Goods();
-        goods.setGoodsName("test03");
-        userService.GetCard(user,1,2,goods,"test03");
+        goods.setGoodsName("test04");
+        userService.GetCard(user,1,9,goods,"test04");
         //System.out.println(userService.GetCard(user, 2));
+    }
+    @Test
+    void FunTestUserAccountIsNULL(){
+        List<LuckRecode> luckRecodes = userMapper.CheckUserAccountIsNULL("test04", "test04", 5);
+        System.out.println(luckRecodes.size());
+        System.out.println(luckRecodes.get(0).getUserAccount());
+       // for (int i=1;i<=luckRecodes.size();i++){
+       //     System.out.println(luckRecodes.get(i));
+       // }
     }
 
 }

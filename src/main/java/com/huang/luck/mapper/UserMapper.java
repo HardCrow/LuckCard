@@ -6,6 +6,7 @@ import com.huang.luck.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,5 +28,8 @@ public interface UserMapper {
                           @Param("useraccount") String UserAccount,
                           @Param("goodsname") String GoodsName,
                           @Param("listname")String ListName); //Succeeded 更新数据
+     List<LuckRecode> CheckUserAccountIsNULL(@Param("goodsname") String GoodsName,
+                                      @Param("listname")String ListName,
+                                     @Param("cardrecode")Integer CardRecode );
 
 }

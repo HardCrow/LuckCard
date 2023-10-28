@@ -50,4 +50,7 @@
     set  UserAccount=#{useraccount}
     where GoodsName = #{goodsname} and ListName= #{listname} and CardRecode=#{cardrecode}
     </update>
+    <select id="CheckUserAccountIsNULL" resultMap="CardNumsCollection">
+      select useraccount from luckrecode where GoodsName=#{goodsname} and  ListName=#{listname} and CardRecode=#{cardrecode}
+    </select>
 </mapper>
