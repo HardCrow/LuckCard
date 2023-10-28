@@ -1,5 +1,6 @@
 package com.huang.luck.service.UserServiceImpl;
 
+import com.huang.luck.entity.Admin;
 import com.huang.luck.entity.Goods;
 import com.huang.luck.entity.LuckRecode;
 import com.huang.luck.entity.User;
@@ -19,6 +20,8 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+
     //Integer返回插入的条目数量
     @Autowired
     UserMapper userMapper;
@@ -97,11 +100,13 @@ public class UserServiceImpl implements UserService {
         if (CardNum == 0) {
             throw new CardNumsException("卡片数量不足，出现异常");
         }
+
         for (int i = 1; i <= CardNum; CardNum--) {
             int index = (int) (Math.random() * Goods.arraylist.size());
             //这里加一个数据库语句
             array.add(Goods.arraylist.get(index));
             //加CardRecode UserAccount GoodsName
+
             LuckRecode luckRecode = new LuckRecode();
             luckRecode.setCardRecode((int)Goods.arraylist.get(index));
             luckRecode.setUserAccount(user.getUserAccount());   //获取useraccount的值给cardrecode里面
@@ -130,7 +135,6 @@ public class UserServiceImpl implements UserService {
        String userAccount=luckRecode.getUserAccount();
         return userAccount;
     }
-
     @Override
     public void AddGoods(Goods goods) {
         String goodsName = goods.getGoodsName();
@@ -140,6 +144,35 @@ public class UserServiceImpl implements UserService {
         }
         else
             System.out.println("商品已经存在，请勿重复添加");
+    }
+//下面 是另一种方法
+    @Override
+    public void AddCard(Admin admin, int Price, Goods goods, String ListName) {
+        //这是管理员利用价格去添加卡片数量的操作
+        LuckRecode luckRecode = new LuckRecode();
+        luckRecode.setListName(ListName);
+        luckRecode.setCreateName(admin.getAccount());
+        luckRecode.setGoodsName(goods.getGoodsName());
+        for (int i=1;i<=Price;i++){
+        luckRecode.setCardRecode(i);
+        userMapper.AddCardGoods(luckRecode);
+         }
+    }
+
+    @Override
+    public void GetCard(User user,Integer Money,Integer num,Goods goods,String ListName) {
+        //num是查询admin创建的卡片数量  应该在Controller层去查询出来然后调用本方法时去传入参数
+        if (num<Money){
+            new Exception("买的卡片数太多了");
+        }
+        //随机数没有同步，也就是说下面的语句不安全，用户会买重复的卡片
+      for(int i=1;i<=Money;i++) {
+          int max = num;
+          int min = 1;
+          long randomNum = System.currentTimeMillis();
+          int nums = (int) (randomNum % (max - min) + min);   //随机生成数
+          userMapper.UpdataGetAccount(nums,user.getUserAccount(),goods.getGoodsName(),ListName);
+      }
     }
 
 

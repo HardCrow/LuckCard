@@ -33,4 +33,21 @@
     <select id="CheckLuckCode" resultMap="PirzeCodeEntityMap">
         select * from luckrecode where cardrecode=#{cardrecode}
     </select>
+
+
+
+    <insert id="AddCardGoods" parameterType="com.huang.luck.entity.LuckRecode" useGeneratedKeys="true" keyProperty="cid">
+        insert into luckrecode(CardRecode,GoodsName,CreateName,ListName)
+        values (#{CardRecode},#{GoodsName},#{CreateName},#{ListName})
+    </insert>
+    <resultMap id="CardNumsCollection" type="com.huang.luck.entity.LuckRecode">
+    </resultMap>
+    <select id="CheckRecodeNums" resultMap="CardNumsCollection" >
+      select * from luckrecode where GoodsName=#{goodsname} and  ListName=#{listname}
+    </select>
+    <update id="UpdataGetAccount">
+    update luckrecode
+    set  UserAccount=#{useraccount}
+    where GoodsName = #{goodsname} and ListName= #{listname} and CardRecode=#{cardrecode}
+    </update>
 </mapper>

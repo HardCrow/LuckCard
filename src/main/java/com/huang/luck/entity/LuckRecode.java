@@ -5,6 +5,24 @@ public class LuckRecode {
     private int CardRecode;
     private String UserAccount;
     private String GoodsName;
+    private String CreateName;
+    private String ListName;
+
+    public String getCreateName() {
+        return CreateName;
+    }
+
+    public void setCreateName(String createName) {
+        CreateName = createName;
+    }
+
+    public String getListName() {
+        return ListName;
+    }
+
+    public void setListName(String listName) {
+        ListName = listName;
+    }
 
     public LuckRecode() {
     }

@@ -1,6 +1,8 @@
 package com.huang.luck;
 
+import com.huang.luck.controller.AdminController;
 import com.huang.luck.controller.UserController;
+import com.huang.luck.entity.Admin;
 import com.huang.luck.entity.Goods;
 import com.huang.luck.entity.LuckRecode;
 import com.huang.luck.entity.User;
@@ -28,6 +30,8 @@ class LuckApplicationTests {
     UserMapper userMapper;
     @Autowired
     UserController userController;
+    @Autowired
+    AdminController adminController;
     @Test
     void testGoods(){
         Goods goods = userMapper.findByGoodsName("霓虹");
@@ -109,6 +113,7 @@ class LuckApplicationTests {
         User user2 = new User();
         user2.setUserAccount("111");
        user1.setUserAccount("131");
+      //  User user3 = new User();
         Goods goods = new Goods();
         goods.setGoodsName("测试");
      //   System.out.println("拿到的卡片:"+userService.LUCK(user1,goods,8));
@@ -117,6 +122,7 @@ class LuckApplicationTests {
        // System.out.println( Goods.arraylist.get(6));
         System.out.println("拿到的卡片:"+userService.LUCK(user1,goods,3));
         System.out.println("拿到的卡片:"+userService.LUCK(user2,goods,3));
+      //  System.out.println("拿到的卡片:"+userService.LUCK(user3,goods,3));
       //  System.out.println("拿到的卡片:"+userService.LUCK(user2,goods,3));
         System.out.println("剩余卡片:"+Goods.arraylist); //因为是静态的所以可以这里直接调用
        // System.out.println(userService.LUCK(user1.getId(),2));
@@ -135,7 +141,12 @@ class LuckApplicationTests {
         //  System.out.println(userService.luck(10,3));
     }
 //中奖查询的方法
-   
+   @Test
+   void test08(){
+       User user1 = new User();
+       Goods goods = new Goods();
+       System.out.println("拿到的卡片:"+userService.LUCK(user1,goods,3));
+   }
     @Test
     void testLuckCard(){
        int pirzeCard=userService.LuckCard(6);
@@ -155,7 +166,7 @@ class LuckApplicationTests {
     }
 
 
-@Test
+    @Test
     void test333(){
         List<String> list = Arrays.asList("a","b","c","1221","sdad");
         int index = (int) (Math.random()* list.size());
@@ -175,5 +186,57 @@ class LuckApplicationTests {
         int a=5;
         System.out.println( userMapper.CheckLuckCode(a));
      }
+     @Test
+    void  qita(){
+         String str="Hello";
+         String str2="Hello";
+         System.out.println(str==str2);
+     }
+     //另一种方式
+    @Test
+    void FunTest01(){
+        //管理员是批量添加数据 这里实例是一个
+        LuckRecode luckRecode = new LuckRecode();
+        luckRecode.setListName("huang");
+        luckRecode.setCreateName("admin");
+        luckRecode.setGoodsName("test");
+        luckRecode.setCardRecode(2);
+        userMapper.AddCardGoods(luckRecode);
+    }
+    @Test
+    void FunTest02(){
+        //批量生成卡片数
+        Admin admin = new Admin();
+        admin.setAccount("huang");
+        Goods goods = new Goods();
+        goods.setGoodsName("test02");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
+        //现在testlist好像没什么用，因为我不用list去存储数据了
+        userService.AddCard(admin,4,goods,"testList");
+        userService.AddCard(admin,4,goods,"testList");
+    }
+    @Test
+    void  FunTestController02(){
+        adminController.SetCardNum();
+    }
+    @Test
+    void FunTestMapperUser01(){
+        //这个方法暂时还没有用过
+        List<LuckRecode> a=userMapper.CheckRecodeNums("test03","test03");
+        System.out.println(a);
+    }
+    @Test
+    void FunTestMapperUser02() {
+        userMapper.UpdataGetAccount(1,"huang01","test03","test03");
+    }
+
+    @Test
+    void FunTestUserService01(){
+        User user = new User();
+        user.setUserAccount("huang02");
+        Goods goods = new Goods();
+        goods.setGoodsName("test03");
+        userService.GetCard(user,1,2,goods,"test03");
+        //System.out.println(userService.GetCard(user, 2));
+    }
 
 }

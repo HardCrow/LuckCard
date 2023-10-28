@@ -11,7 +11,8 @@ public class Goods {
     private String goodsName;
 
 
-    public volatile static ArrayList arraylist=new ArrayList();   //设置属性共享的方法   多线程调用同一个list  一定要new
+    public volatile static ArrayList arraylist=new ArrayList();
+    //设置属性共享的方法   多线程调用同一个list  一定要new
 
 
     public Goods() {
