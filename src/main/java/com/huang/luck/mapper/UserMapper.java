@@ -13,23 +13,26 @@ import java.util.List;
 @Mapper
 //没有小鸟图标就去配置文件添加mybatis的路径
 public interface UserMapper {
-     Integer insert(User user);
-     User findByAccount(String Account);
-     void AddGoods(Goods goods);
-     Goods findByGoodsName(String GoodsName);
-     Integer AddCard(LuckRecode luckRecode);
-     LuckRecode CheckLuckCode(int cardrecode);
+     Integer insert(User user);   //插入user  也就是用户注册的命令
+     User findByAccount(String Account);   //登入要用
+     void AddGoods(Goods goods);   //添加货物
+     Goods findByGoodsName(String GoodsName);  //登入查询用户是否存在
      //以下是另外一种方式
      void AddCardGoods(LuckRecode luckRecode);   //Succeeded  添加
      //查询该货物创建了多少个卡片数
      //其实好像可以不能sql 直接在admin创建的时候去传入
-     List<LuckRecode> CheckRecodeNums(@Param("goodsname") String GoodsName,@Param("listname")String ListName); //查询
+     List<LuckRecode> CheckRecodeNums(@Param("goodsname") String GoodsName,
+                                      @Param("listname")String ListName); //查询
     void UpdataGetAccount(@Param("cardrecode")int CardRecode,
                           @Param("useraccount") String UserAccount,
                           @Param("goodsname") String GoodsName,
                           @Param("listname")String ListName); //Succeeded 更新数据
      List<LuckRecode> CheckUserAccountIsNULL(@Param("goodsname") String GoodsName,
                                       @Param("listname")String ListName,
-                                     @Param("cardrecode")Integer CardRecode );
+                                     @Param("cardrecode")Integer CardRecode );  //查询数据中的useraccount是否为空
+    String CheckUserAccount(@Param("cardrecode")Integer CardRecode);
+
+
+
 
 }
