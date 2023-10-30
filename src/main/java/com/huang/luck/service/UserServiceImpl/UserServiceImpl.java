@@ -8,28 +8,22 @@ import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
 import com.huang.luck.service.ex.*;
 import com.huang.luck.util.LuckTool.NumsRandom;
-import com.huang.luck.util.LuckTool.SetPrice;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
-
+@Slf4j   //这里一定要加Lombok插件
 @Service
 public class UserServiceImpl implements UserService {
-
-
     //Integer返回插入的条目数量
     @Autowired
     UserMapper userMapper;
-
     @Override
     public void insert(User user) {
         //以下是注册方法
+
         String userName = user.getUserName();
         User result = userMapper.findByAccount(userName);
         if (result != null) {
@@ -191,7 +185,6 @@ public class UserServiceImpl implements UserService {
                     上面是判断useracoount为空就更新，useraccount不为空否则就--i 回退步骤
                     怎么break出去  --i
                 */
-
                 System.out.println("该数据有值");
                 --i;
                if (i==0){

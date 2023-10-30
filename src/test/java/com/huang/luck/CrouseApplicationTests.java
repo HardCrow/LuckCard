@@ -8,17 +8,13 @@ import com.huang.luck.entity.LuckRecode;
 import com.huang.luck.entity.User;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
-import com.huang.luck.service.ex.ServiceException;
-import com.huang.luck.util.LuckTool.SetPrice;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.xml.ws.Service;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -91,7 +87,9 @@ class LuckApplicationTests {
        // }
     }
     @Test
-    void  FunTestUserService02(){
+
+    public void  FunTestUserService02(){
+
         System.out.println(userMapper.CheckUserAccount(2));
 
     }
