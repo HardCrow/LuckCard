@@ -48,7 +48,7 @@ class LuckApplicationTests {
         Goods goods = new Goods();
         goods.setGoodsName("test04");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
         //现在testlist好像没什么用，因为我不用list去存储数据了
-        userService.AddCard(admin,4,goods,"test04");
+        userService.AddCard(admin,10,goods,"test04");
         //userService.AddCard(admin,4,goods,"testList");
     }
     @Test
@@ -72,7 +72,7 @@ class LuckApplicationTests {
         user.setUserAccount("huang04");
         Goods goods = new Goods();
         goods.setGoodsName("test04");
-        userService.GetCard(user,1,4,goods,"test04");
+        userService.GetCard(user,1,10,goods,"test04");
         //System.out.println(userService.GetCard(user, 2));
     }
     @Test
