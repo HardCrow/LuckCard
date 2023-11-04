@@ -197,11 +197,11 @@ public class UserServiceImpl implements UserService {
                 --i;
                 //如果listname的数量等于num  则随机生成中奖卡片
                if (userMapper.CountUserAccountNum(user.getUserAccount())==num){
-                   System.out.println("listname"+ListName+"中的useraccount满了");
+                   log.info("listname"+ListName+"中的useraccount满了");
                    //这里开始生成中奖的随机数 回传username即可
                    //这里是可以生成的因为i==-1时只有最后一次，也就是说只会调用一次
                    Integer LuckCodeCard = numsRandom.NumsRandom(num); //随机生成
-                   System.out.println(userMapper.CheckUserAccount(LuckCodeCard)+",恭喜你中奖了"+"中奖奖品为"+goods.getGoodsName());
+                   log.info(userMapper.CheckUserAccount(LuckCodeCard)+",恭喜你中奖了"+"中奖奖品为"+goods.getGoodsName());
                    break;
                    //这里成功了 这个抽奖功能主要逻辑做好了
                    //还有一些小问题就是 抛出异常，还有一个listname的问题不好弄
