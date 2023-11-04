@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-@Slf4j   //这里一定要加Lombok插件
+@Slf4j   //这里一定要加Lombok插件   testgithub
 @Service
 public class UserServiceImpl implements UserService {
     //Integer返回插入的条目数量

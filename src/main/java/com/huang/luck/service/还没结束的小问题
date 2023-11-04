@@ -1,0 +1,6 @@
+github 没有提交好 error: failed to push some refs to 'github.com:HardCrow/springbootLucky.git'
+                To github.com:HardCrow/springbootLucky.git
+                hint: Updates were rejected because the tip of your current branch is behind
+                !	refs/heads/master:refs/heads/master	[rejected] (non-fast-forward)
+                Done
+                先解决github的这个问题
