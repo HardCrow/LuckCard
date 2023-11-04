@@ -46,9 +46,9 @@ class LuckApplicationTests {
         Admin admin = new Admin();
         admin.setAccount("huang");
         Goods goods = new Goods();
-        goods.setGoodsName("test04");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
+        goods.setGoodsName("test05");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
         //现在testlist好像没什么用，因为我不用list去存储数据了
-        userService.AddCard(admin,10,goods,"test04");
+        userService.AddCard(admin, 3,goods,"test05");
         //userService.AddCard(admin,4,goods,"testList");
     }
     @Test
@@ -69,10 +69,10 @@ class LuckApplicationTests {
     @Test
     void FunTestUserService01(){
         User user = new User();
-        user.setUserAccount("huang04");
+        user.setUserAccount("huang05");
         Goods goods = new Goods();
-        goods.setGoodsName("test04");
-        userService.GetCard(user,1,10,goods,"test04");
+        goods.setGoodsName("test05");
+        userService.GetCard(user,3,3,goods,"test05");
         //System.out.println(userService.GetCard(user, 2));
     }
     @Test
@@ -89,8 +89,8 @@ class LuckApplicationTests {
     @Test
 
     public void  FunTestUserService02(){
-
-        System.out.println(userMapper.CheckUserAccount(2));
+        System.out.println(userMapper.CountUserAccountNum("huang05"));
+        //  System.out.println(userMapper.CheckUserAccount(2));
 
     }
 

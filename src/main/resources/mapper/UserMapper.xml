@@ -42,6 +42,9 @@
     <select id="CheckUserAccountIsNULL" resultMap="CardNumsCollection">
       select useraccount from luckrecode where GoodsName=#{goodsname} and  ListName=#{listname} and CardRecode=#{cardrecode}
     </select>
+    <select id="CountUserAccountNum" resultType="integer">
+        select count(useraccount) from luckrecode  where UserAccount=#{useraccount}
+    </select>
     <select id="CheckUserAccount" resultType="string">
       select useraccount from luckrecode where CardRecode=#{cardrecode}
     </select>

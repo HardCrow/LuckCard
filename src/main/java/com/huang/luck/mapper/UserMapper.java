@@ -30,7 +30,8 @@ public interface UserMapper {
      List<LuckRecode> CheckUserAccountIsNULL(@Param("goodsname") String GoodsName,
                                       @Param("listname")String ListName,
                                      @Param("cardrecode")Integer CardRecode );  //查询数据中的useraccount是否为空
-    String CheckUserAccount(@Param("cardrecode")Integer CardRecode);
+    Integer CountUserAccountNum(@Param("useraccount") String UserAccount);  //利用list的名字去查询有这个名字的数据条目数
+    String CheckUserAccount(@Param("cardrecode")Integer CardRecode);   //利用数字去查询中奖人的名字
 
 
 

@@ -175,6 +175,14 @@ public class UserServiceImpl implements UserService {
             if(luckRecodes.get(0).getUserAccount().equals("null")) {
                 //这里尤其注意null是字符串并不是地址因此要用equals并且打上引号
                userMapper.UpdataGetAccount(nums, user.getUserAccount(), goods.getGoodsName(), ListName);
+                if (userMapper.CountUserAccountNum(user.getUserAccount())==num){
+                    System.out.println("listname"+ListName+"中的useraccount满了");
+                    //这里开始生成中奖的随机数 回传username即可
+                    //这里是可以生成的因为i==-1时只有最后一次，也就是说只会调用一次
+                    Integer LuckCodeCard = numsRandom.NumsRandom(num); //随机生成
+                    System.out.println(userMapper.CheckUserAccount(LuckCodeCard)+",恭喜你中奖了"+"中奖奖品为"+goods.getGoodsName());
+                    break;
+                }
             }
             else {
                 //这里先用最原始的逻辑去使用
@@ -183,11 +191,12 @@ public class UserServiceImpl implements UserService {
                    //项目逻辑先捋一遍
                     /*
                     上面是判断useracoount为空就更新，useraccount不为空否则就--i 回退步骤
-                    怎么break出去  --i
+                    怎么break出去  --ii
                 */
                 System.out.println("该数据有值");
                 --i;
-               if (i==0){
+                //如果listname的数量等于num  则随机生成中奖卡片
+               if (userMapper.CountUserAccountNum(user.getUserAccount())==num){
                    System.out.println("listname"+ListName+"中的useraccount满了");
                    //这里开始生成中奖的随机数 回传username即可
                    //这里是可以生成的因为i==-1时只有最后一次，也就是说只会调用一次
