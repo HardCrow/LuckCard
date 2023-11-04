@@ -21,6 +21,6 @@ public class UserController extends BaseController {
     UserMapper userMapper;
     @RequestMapping("/getCard")
     public  void UserGetCard(){  //这里应该return一个json字符串
-   //test1
+   //test11
      }
 }
