@@ -4,17 +4,15 @@ import com.huang.luck.entity.Admin;
 import com.huang.luck.entity.Goods;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
-import com.huang.luck.util.JsonResult;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
+@Tag(name="adminController层",description = "管理员添加货物的操作")
 @RestController
 @RequestMapping("/admin")
 @Controller

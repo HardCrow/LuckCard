@@ -16,13 +16,13 @@ public class LoginInterptorConfiger implements WebMvcConfigurer {
     //将自定义的拦截器进行注册
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //创建自定义拦截器的对象
+       //创建自定义拦截器的对象
         HandlerInterceptor interceptor = new LoginInterptor();
         List<String> patterns=new ArrayList<>();
-        patterns.add("/bootstrap3/**");
-        patterns.add("/css/**");
-        patterns.add("/js/**");
-        patterns.add("/image/**");
+       // patterns.add("/bootstrap3/**");
+      //  patterns.add("/css/**");
+       // patterns.add("/js/**");
+       // patterns.add("/image/**");
         patterns.add("/web/register.html");
         patterns.add("/web/login.html");
         patterns.add("/web/index.html");
