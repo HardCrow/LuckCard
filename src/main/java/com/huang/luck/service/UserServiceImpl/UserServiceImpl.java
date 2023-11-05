@@ -145,12 +145,12 @@ public class UserServiceImpl implements UserService {
 
     //下面 是另一种方法
     @Override
-    public void AddCard(Admin admin, int Price, Goods goods, String ListName) {
+    public void AddCard(String CreateName, int Price,String GoodsName, String ListName) {
         //这是管理员利用价格去添加卡片数量的操作
         LuckRecode luckRecode = new LuckRecode();
         luckRecode.setListName(ListName);
-        luckRecode.setCreateName(admin.getAccount());
-        luckRecode.setGoodsName(goods.getGoodsName());
+        luckRecode.setCreateName(CreateName);
+        luckRecode.setGoodsName(GoodsName);
         for (int i = 1; i <= Price; i++) {
             luckRecode.setCardRecode(i);
             userMapper.AddCardGoods(luckRecode);

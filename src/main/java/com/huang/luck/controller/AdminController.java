@@ -35,17 +35,13 @@ public class AdminController extends BaseController {  //这里继承例了baseC
        4.get请求可以被缓存，post请求不会被缓存。
        5.get请求会被保存在浏览器历史记录当中，post不会。get请求可以被收藏为书签，因为参数就是url中，但post不能。它的参数不在url中。
        6.get请求只能进行url编码（appliacation-x-www-form-urlencoded）,post请求支持多种（multipart/form-data等）。*/
-    public void  SetCardNum(){
+    public void  SetCardNum(String CreateName,Integer Price,String GoodsName,String ListName){
         //前端传入价格和 名字
         //当然前端必然可以传入管理员信息过来
         //这里就是模拟前端传递管理员名字过来
-        Admin admin = new Admin();
-        admin.setAccount("huang");
-        //这里模拟前端传递货物名字
-        Goods goods = new Goods();
-        goods.setGoodsName("test03");
         //这里就模拟前端传递货物的价格直接在方法里面使用   listName的话好像没用过  listname是同名商品间的唯一标识
-        userService.AddCard(admin,2,goods,"test03");
+        //前端可以传递形参：CreatNname，Price，GoodsName，Listname  其中CreateName是admin登入后然后网页传入，其他是直接填入表格后传递
+        userService.AddCard(CreateName,Price,GoodsName,ListName);
     }
 
 

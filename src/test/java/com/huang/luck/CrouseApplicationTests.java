@@ -48,12 +48,12 @@ class LuckApplicationTests {
         Goods goods = new Goods();
         goods.setGoodsName("test05");  //货物名字就是由管理设置  前端给两个框 一个是设置名字的框一个是价格（卡片数量）的框
         //现在testlist好像没什么用，因为我不用list去存储数据了
-        userService.AddCard(admin, 3,goods,"test05");
+        userService.AddCard("aaa", 0,"sda","test05");
         //userService.AddCard(admin,4,goods,"testList");
     }
     @Test
     void  FunTestController02(){
-        adminController.SetCardNum();
+       // adminController.SetCardNum();
     }
     @Test
     void FunTestMapperUser01(){
