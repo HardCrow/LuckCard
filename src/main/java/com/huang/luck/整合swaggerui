@@ -1,0 +1,13 @@
+   <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+
+        加入上面的pom包
+        然后在启动项上面配置一个@EnableSwagger2 引入包即可使用

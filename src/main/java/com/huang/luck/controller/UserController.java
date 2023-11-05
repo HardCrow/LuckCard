@@ -34,5 +34,11 @@ public class UserController extends BaseController {
         //这里的话不太严谨  未完成
         userService.GetCard(user,Money,num,goods,ListName);
        return new JsonResult<User>(OK);
+       //这里如果报错的话不用我们自己去调用构造器
+        //spring直接报错 直接调用 public JsonResult(Throwable e)这个构造器因此我们只需要
+        //去调用public JsonResult(Integer state)
+        //    public JsonResult(Integer state, E data)这两个构造器即可
+       //这里的OK表示200  在jsonResult的类中调用的是public JsonResult(Integer state)这个构造器
+        //BaseController中if里面判断类型没有instance 200的情况，所以在BaseController里面直接return 200； 前端200表示成功
      }
 }

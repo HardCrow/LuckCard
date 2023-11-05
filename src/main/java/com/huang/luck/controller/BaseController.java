@@ -11,7 +11,7 @@ import java.rmi.ServerException;
 public class BaseController {
 
     //static final声明后，就称为常量，不能改变
-  public static final int OK=200;
+    public static final int OK=200;
   //请求处理方法，这个方法的返回值就是需要传递给前端的数据
     //自动将异常对象传递给此方法的参数列表上
     //当项目中产生了异常会被统一拦截到此方法中，这个方法此时就充当的是请求处理方法，方法的返回值直接给到前端
@@ -19,7 +19,7 @@ public class BaseController {
   public JsonResult<Void> handleException(Throwable e){
       JsonResult<Void> result;
       result = new JsonResult<>(e);
-      if (e instanceof UsernameDuplicatedException) {
+      if (e instanceof UsernameDuplicatedException) {  //instantof用于判断对象类型
           result.setState(4000);
           result.setMessage("用户名已经被占用");
       }else if (e instanceof UsernameNotFoundException){
@@ -38,7 +38,8 @@ public class BaseController {
           return result;//这里才是传送给前端的结果集
 
   }
-  protected final Integer getuidFromSession(HttpSession session){
+/*  这里的东西暂时没有用到
+protected final Integer getuidFromSession(HttpSession session){
       return Integer.valueOf(session.getAttribute("uid").toString());
   }
   protected final String getUsernameFromSession(HttpSession session){
@@ -49,5 +50,5 @@ public class BaseController {
     }
     protected final String getAdminNameFromSession(HttpSession session){
         return session.getAttribute("AdminName").toString();
-    }
+    }*/
 }
