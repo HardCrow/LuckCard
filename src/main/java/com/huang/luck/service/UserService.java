@@ -7,11 +7,8 @@ import com.huang.luck.entity.User;
 import java.util.List;
 
 public interface UserService {
-    //   List luck(int CardNum);
-    // List LUCK(User user,Goods goods,int CardNum);
-    // Integer LuckCard(int Price);     //随机生成中奖卡片
-    //   String CheckPrizeCard(int PrizeCard);
-    void insert(User user);
+
+    void Reg(User user);  //这是用户插入方法
     User login(String account, String password);
     void AddGoods(Goods goods);
     //以下全部是另一种方法

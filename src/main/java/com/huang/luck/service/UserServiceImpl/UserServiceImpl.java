@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
     @Override
-    public void insert(User user) {
+    public void Reg(User user) {
         //以下是注册方法
 
         String userName = user.getUserName();

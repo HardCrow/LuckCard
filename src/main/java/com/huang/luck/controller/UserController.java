@@ -9,6 +9,7 @@ import com.huang.luck.service.UserService;
 import com.huang.luck.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,34 @@ public class UserController extends BaseController {
     UserService userService;
     @Autowired
     UserMapper userMapper;
+      @RequestMapping("/reg")
+      public JsonResult<?> UserReg(User user){
+         try{ userService.Reg(user);}
+         catch (DataIntegrityViolationException e){
+             log.info("出现了未知的错误："+e);
+             //前端的话应该限制客户为空，不允许前端客户使用时表单的数据 对应mysql的数据不能为空值
+             //前端也应该限制用户使用时候的长度等输入的任何问题
+             //前端只需要传递正确的数据给后端即可   空输入不是后端的问题
+             //后端也只要输出给前端正确的json字符数据即可
+         }
+         finally {
+             return new JsonResult<User>(OK); //JsonResult<User> 判断是否为user对象  然后调用构造器
+                                             // public JsonResult(Integer state)  下面也有解释
+         }
+       }
+
+      @RequestMapping("/Login")
+      public  JsonResult<User> UserLogin(String account, String password){
+      try {
+          userService.login(account, password);
+      }catch (RuntimeException e){
+          log.info("出现了未知的错误："+e);  //log.info()方法必须要加引号因为是string类型
+      }
+      finally {
+          return  new JsonResult<User>(OK);   //前面和后面都有解释 这里只是调用了一个构造器
+      }
+
+      }
     @RequestMapping("/getCard")
     public JsonResult<User> UserGetCard(User user, Integer Money, Integer num, Goods goods, String ListName){
         //这里应该return一个json字符串

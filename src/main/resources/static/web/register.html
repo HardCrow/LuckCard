@@ -140,28 +140,74 @@
 
 		<!--页脚结束-->
 		<script type="text/javascript">
-			$("#btn-reg").click(function () {
+			$("#btn-reg").click(function () {  //前端页面还要进行修改不能那么粗糙 要限制用户传递的数据不能把非null的值修改成null
 				$.ajax({
 					url:"/users/reg",
-					type:"POST",
-					data:$("#form-reg").serialize(),
-					dataType:"JSON",
-					success:function (json) {
-						if(json.state==200){
+					type:"POST", //get请求一般用来请求获取数据 	post请求一般作为发送数据到后台，传递数据，创建数据
+					data:$("#form-reg").serialize(),  //序列化成json数据
+					dataType:"JSON",                  //序列化后数据类型转化成json类型
+					success:function (json) {      //成功就执行function方法传入json的数据
+						if(json.state==200){     //获取json的状态  对比状态码  状态码在web页面已经存于里面api中有
 							alert("注册成功");
-						}else{
+						}else{                  //状态码非200就执行下面代码
 							alert("注册失败");
 						}
 
 					},
-					error:function (xhr){
+					error:function (xhr){     //如果上面就开始出错就执行这个
 						alert("注册时产生了异常错误"+xhr.status);
 					}
 				});
 
 			});
+			/*get请求也可以传参到后台，但是传递的参数则显示在地址栏，安全性低，且参数的长度也有限制（2048字符）
+
+      post请求则是将传递的参数放在request body中，不会在地址栏显示，安全性比get请求高，参数没有长度限制
+
+3、get请求刷新浏览器或者回退没有影响
+
+      post请求则会重新请求一遍
+
+4、get请求可以被缓存，也会保留在浏览器的历史记录中
+
+      post请求不会被缓存，也不好保留在浏览器的历史记录中
+
+5、get请求通常是通过url地址请求
+
+       post常见的则是form表单请求
+
+6、get产生一个tcp数据包
+
+      post产生两个tcp数据包
+
+7、get产生的URL地址可以被Bookmark
+
+      而post不可以
+
+8、get请求会被浏览器主动cache
+
+      而post不会，除非手动设置
+
+9、对参数的数据类型，get只接受ASCII字符，而post没有限制。
+
+10、get比post更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。
+
+三、特别
+对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+
+而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+
+但是！
+
+1. GET与POST都有自己的语义，不能随便混用。
+
+2. 据研究，在网络环境好的情况下，发一次包的时间和发两次包的时间差别基本可以无视。而在网络环境差的情况下，两次包的TCP在验证数据包完整性上，有非常大的优点。
+
+3. 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次
+————————————————
+版权声明：本文为CSDN博主「youtufeitu」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/youtufeitu/article/details/124306915*/
 	</script>
 	</body>
-
 
 </html>

@@ -93,6 +93,12 @@ class LuckApplicationTests {
         //  System.out.println(userMapper.CheckUserAccount(2));
 
     }
+    @Test
+    public  void r11111(){
+        int i=10;
+        i=i++;
+        System.out.println(i);
+    }
 
 
 }

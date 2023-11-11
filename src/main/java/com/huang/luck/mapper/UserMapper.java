@@ -16,7 +16,7 @@ public interface UserMapper {
      Integer insert(User user);   //插入user  也就是用户注册的命令
      User findByAccount(String Account);   //登入要用
      void AddGoods(Goods goods);   //添加货物
-     Goods findByGoodsName(String GoodsName);  //登入查询用户是否存在
+     Goods findByGoodsName(String GoodsName);  //登入查询货物是否存在
      //以下是另外一种方式
      void AddCardGoods(LuckRecode luckRecode);   //Succeeded  添加
      //查询该货物创建了多少个卡片数
