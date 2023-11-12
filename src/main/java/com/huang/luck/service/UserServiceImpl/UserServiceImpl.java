@@ -7,12 +7,14 @@ import com.huang.luck.entity.User;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
 import com.huang.luck.service.ex.*;
+import com.huang.luck.util.LuckTool.Md5Encryption;
 import com.huang.luck.util.LuckTool.NumsRandom;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j   //这里一定要加Lombok插件   testgithub
 @Service
@@ -23,7 +25,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void Reg(User user) {
         //以下是注册方法
-
+        //md5加密  串加password加串   盐值+password+盐值
+        String oldPassword = user.getUserpsd();
+        //获取盐值
+        //tostring()方法是获取的数变成一串，toUpperCase()把小写变成大写
+        String salt = UUID.randomUUID().toString().toUpperCase();
+        user.setSalt(salt);
+        Md5Encryption md5Encryption = new Md5Encryption();
+        String md5Password = md5Encryption.getMD5Password(oldPassword, salt);//这里调用了一个公共的md5处理类 不知道会不会有什么影响
+                                                                             //将密码和盐值作为一个整体进行加密处理
+        user.setUserpsd(md5Password);   //完成加密回传给user对象 给mysql储存
         String userName = user.getUserName();
         User result = userMapper.findByAccount(userName);
         if (result != null) {
@@ -45,9 +56,12 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("用户账号未找到,请重试");
         }
         String userpsd = result.getUserpsd();
-        if (!password.equals(userpsd)) {
-            throw new PasswordNotMatchException("用户密码不正确");
-        }
+            if (!password.equals(userpsd)) {
+                throw new PasswordNotMatchException("用户密码不正确");
+            }
+
+
+
         User user = new User();
         user.setId(result.getId());
         user.setUserName(result.getUserName());
@@ -162,7 +176,7 @@ public class UserServiceImpl implements UserService {
         //num是查询admin创建的卡片数量  应该在Controller层去查询出来然后调用本方法时去传入参数
         //user goods Money都是前端传过来的  其他都是后端生成的
         if (num < Money) {
-            new Exception("买的卡片数太多了");
+            new CardNumsException("买的卡片数太多了");
         }
         //随机数没有同步，也就是说下面的语句不安全，用户会买重复的卡片
         for (int i = 1; i <= Money; i++) {
