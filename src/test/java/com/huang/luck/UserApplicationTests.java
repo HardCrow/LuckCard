@@ -4,6 +4,7 @@ import com.huang.luck.controller.UserController;
 import com.huang.luck.entity.User;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
+import com.huang.luck.util.LuckTool.Md5Encryption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,10 @@ public class UserApplicationTests {
       //  System.out.println(userService.login("13197916220","123456"));
        // System.out.println("----------------------------------------------------------");
       //  System.out.println(userService.login("黄英杰","13197916200"));
-        System.out.println(userController.UserLogin("黄","123456"));
+      //  System.out.println(userController.UserLogin("黄","123456"));
+       System.out.println(userService.login("13197916220", "123456"));
+       // System.out.println(userMapper.findSaltAccount("13197916220"));
+        //Md5Encryption md5Encryption = new Md5Encryption();
+       // System.out.println(md5Encryption.getMD5Password("123456","1D506216-92A4-4CF1-A549-127304F4015B"));
     }
 }

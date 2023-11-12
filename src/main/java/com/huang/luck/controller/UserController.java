@@ -41,12 +41,13 @@ public class UserController extends BaseController {
        }
 
       @RequestMapping("/login")
-      public  JsonResult<User> UserLogin(String useraccount, String password){
-         try{ userService.login(useraccount, password);}
-         catch (Exception e){
-             log.info("出现了未知的错误："+e);
-             return new JsonResult<>(e);  //这里不可以删掉 ，删掉后会执行下面的return  前端就会成功登入
-         }
+      public  JsonResult<User> UserLogin(String account,String password){
+       //  try{ userService.login(user);}
+          userService.login(account,password);
+        // catch (Exception e){
+         //    log.info("出现了未知的错误："+e);
+       //      return new JsonResult<>(e);  //这里不可以删掉 ，删掉后会执行下面的return  前端就会成功登入
+       //  }
           return  new JsonResult<User>(OK);   //前面和后面都有解释 这里只是调用了一个构造器
       }
     @RequestMapping("/getCard")

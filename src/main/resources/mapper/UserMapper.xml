@@ -15,6 +15,9 @@
     <select id="findByAccount" resultMap="UserEntityMap">
     SELECT * FROM user WHERE userAccount=#{userAccount}
     </select>
+    <select id="findSaltAccount" resultType="string">
+    SELECT salt FROM user WHERE userAccount=#{userAccount}
+    </select>
     <insert id="AddGoods" useGeneratedKeys="true" keyProperty="sid">
         insert into goods(price,goodspic,goodsName)
         values (#{price},#{goodspic},#{goodsName})

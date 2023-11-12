@@ -15,6 +15,7 @@ import java.util.List;
 public interface UserMapper {
      Integer insert(User user);   //插入user  也就是用户注册的命令
      User findByAccount(String Account);   //登入要用
+    String findSaltAccount(String Account);
      void AddGoods(Goods goods);   //添加货物
      Goods findByGoodsName(String GoodsName);  //登入查询货物是否存在
      //以下是另外一种方式

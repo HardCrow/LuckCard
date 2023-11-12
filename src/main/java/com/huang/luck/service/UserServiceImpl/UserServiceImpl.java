@@ -49,22 +49,26 @@ public class UserServiceImpl implements UserService {
 
     //Integer返回插入的条目数量
     @Override
-    public User login(String account, String password) {
+    public User login(String account,String password) {
         //以下是登入方法
+
         User result = userMapper.findByAccount(account);
+        String userpsd = result.getUserpsd();
+        System.out.println("获取的密码"+userpsd);
+        String salt = userMapper.findSaltAccount(account);
+        System.out.println("盐值"+salt);
+        Md5Encryption md5Encryption = new Md5Encryption();
+        String md5Password = md5Encryption.getMD5Password(password, salt);
         if (result == null) {
             throw new UsernameNotFoundException("用户账号未找到,请重试");
         }
-        String userpsd = result.getUserpsd();
-            if (!password.equals(userpsd)) {
+        if (md5Encryption.equals(userpsd)) {
+            System.out.println(md5Password);
                 throw new PasswordNotMatchException("用户密码不正确");
             }
-
-
-
         User user = new User();
-        user.setId(result.getId());
-        user.setUserName(result.getUserName());
+        user.setId(result.getId());     //暂时不知道这两个有什么用
+      user.setUserName(result.getUserName());
         return user;
     }
 //    int temp = (int)price;
