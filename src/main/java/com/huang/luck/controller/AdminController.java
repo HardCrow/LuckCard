@@ -2,10 +2,12 @@ package com.huang.luck.controller;
 
 import com.huang.luck.entity.Admin;
 import com.huang.luck.entity.Goods;
+import com.huang.luck.entity.User;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
 
 
+import com.huang.luck.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ public class AdminController extends BaseController {  //这里继承例了baseC
     UserService userService;
     @Autowired
     UserMapper userMapper;
+
     @RequestMapping("/AdminSetCard") //requestmapping默认为get或者post
     /*@RequestMapping(value = "xxx", method = RequestMehod.POST)等价@PostMapping("xxx")
       @RequestMapping(value = "xxx", method = RequestMehod.GET)等价@GetMapping("xxx")

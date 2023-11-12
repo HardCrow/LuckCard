@@ -34,7 +34,7 @@ public class UserController extends BaseController {
              //前端只需要传递正确的数据给后端即可   空输入不是后端的问题
              //后端也只要输出给前端正确的json字符数据即可
          }
-          System.out.println("1111111111111111");
+         // System.out.println("1111111111111111");
              return new JsonResult<User>(OK); //JsonResult<User> 判断是否为user对象  然后调用构造器
                                              // public JsonResult(Integer state)  下面也有解释
 
@@ -42,10 +42,12 @@ public class UserController extends BaseController {
 
       @RequestMapping("/login")
       public  JsonResult<User> UserLogin(String useraccount, String password){
-          userService.login(useraccount, password);
+         try{ userService.login(useraccount, password);}
+         catch (Exception e){
+             log.info("出现了未知的错误："+e);
+             return new JsonResult<>(e);  //这里不可以删掉 ，删掉后会执行下面的return  前端就会成功登入
+         }
           return  new JsonResult<User>(OK);   //前面和后面都有解释 这里只是调用了一个构造器
-
-
       }
     @RequestMapping("/getCard")
     public JsonResult<User> UserGetCard(User user, Integer Money, Integer num, Goods goods, String ListName){
