@@ -27,7 +27,7 @@
 		<!--头部-->
 		<header class="header">
 			<img src="../images/index/stumalllogo.png" alt="" />
-			<span class="pull-right"><small>欢迎访问</small><b>抢卡项目</b></span>
+			<span class="pull-right"><small>欢迎访问</small><b>电脑商城</b></span>
 		</header>
 		<!--主体-->
 		<div class="container mycontent text-left">
@@ -38,7 +38,7 @@
 				<form id="form-login" action="index.html"  class="form-horizontal" role="form">
 					<!--用户名-->
 					<div class="form-group">
-						<label for="username" class="col-md-3 control-label">账户：</label>
+						<label for="useraccount" class="col-md-3 control-label">账号：</label>
 						<div class="col-md-8">
 							<input name="useraccount" type="text" class="form-control" id="useraccount"  placeholder="请输入账号">
 						</div>
@@ -65,6 +65,42 @@
 						<label class="col-md-3 control-label"></label>
 						<div class="col-md-8">
 							<input id="btn-login" class="btn btn-primary" type="button" value="登录" />
+							<span class="pull-right"><small>还没有账号？</small><a href="register.html">注册</a></span>
+						</div>
+					</div>
+				</form>
+				<p>管理员登录</p>
+				<!--表单开始-->
+				<form id="form-admin" action="index.html"  class="form-horizontal" role="form">
+					<!--用户名-->
+					<div class="form-group">
+						<label for="account" class="col-md-3 control-label">名字：</label>
+						<div class="col-md-8">
+							<input name="account" type="text" class="form-control" id="account"  placeholder="请输入用户名">
+						</div>
+					</div>
+					<!--密码-->
+					<div class="form-group">
+						<label for="password" class="col-md-3 control-label"> 密码：</label>
+						<div class="col-md-8">
+							<input name="apassword" type="text" class="form-control" id="apassword"  placeholder="请输入密码">
+						</div>
+					</div>
+					<!-- 记住我-->
+					<div class="form-group">
+						<div class="col-md-offset-3 col-md-6">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="auto1">自动登录
+								</label>
+							</div>
+						</div>
+					</div>
+					<!--提交按钮-->
+					<div class="form-group">
+						<label class="col-md-3 control-label"></label>
+						<div class="col-md-8">
+							<input id="btn" class="btn btn-primary" type="button" value="登录" />
 							<span class="pull-right"><small>还没有账号？</small><a href="register.html">注册</a></span>
 						</div>
 					</div>
@@ -126,27 +162,13 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="col-md-5">
-						<p>电脑商城客户端</p>
-						<img src="../images/index/ios.png" class="lf">
-						<img src="../images/index/android.png" alt="" class="lf" />
-					</div>
-					<div class="col-md-6">
-						<img src="../images/index/erweima.png">
-					</div>
-				</div>
-			</div>
-			<!-- 页面底部-备案号 #footer -->
-			<div class="col-md-12 text-center bottom">
-				Copyright © 2022 dnsc.cn All Rights Reserved 京ICP备08963888号-45 <a target="_blank" href="http://www.dnsc.cn/">圆心科技集团有限公司</a> 版权所有
 			</div>
 		</footer>
 		<!--页脚结束-->
 		<script type="text/javascript">
 			$("#btn-login").click(function () {
 				$.ajax({
-					url:"/users/Login",
+					url:"/users/login",
 					type:"POST",
 					data:$("#form-login").serialize(),
 					dataType:"JSON",
@@ -154,6 +176,7 @@
 						if(json.state==200){
 							alert("登入成功");
 							location.href="index.html";
+							$.cookie("avatar",json.data.avatar,{expire: 7});
 						}else{
 							alert("登入失败");
 						}
@@ -165,5 +188,26 @@
 				});
 			});
 			</script>
+		<script type="text/javascript">
+			$("#btn").click(function () {
+				$.ajax({
+					url:"/admin/login",
+					type:"POST",
+					data:$("#form-admin").serialize(),
+					dataType:"JSON",
+					success:function (json) {
+						if(json.state==200){
+							alert("登入成功");
+							location.href="admin.html";
+						}else{
+							alert("登入失败");
+						}
+					},
+					error:function (xhr){
+						alert("登入时产生了异常错误"+xhr.message);
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

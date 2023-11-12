@@ -34,12 +34,6 @@
 				<!--快捷选项-->
 				<div class="col-md-9 top-item">
 					<ul class="list-inline pull-right">
-						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>
-						<li class="li-split">|</li>
-						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
-						<li class="li-split">|</li>
-						<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
-						<li class="li-split">|</li>
 						<li>
 							<!--下列列表按钮 ：管理-->
 							<div class="btn-group">
@@ -69,11 +63,8 @@
 						<a href="#"></a>
 					</li>
 					<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
-					<li><a href="#">秒杀</a></li>
-					<li><a href="#">优惠券</a></li>
-					<li><a href="#">电脑VIP</a></li>
-					<li><a href="#">外卖</a></li>
-					<li><a href="#">超市</a></li>
+					<li><a href="index.html">返回首页</a></li>
+					<li><a href="notice.html">公告</a></li>
 				</ul>
 			</div>
 			<div class="col-md-6">
@@ -93,23 +84,6 @@
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<!--主选项：我的订单-->
-							<p class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
-							</p>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div><a href="orders.html">全部订单</a></div>
-								<div><a href="orders.html">待付款</a></div>
-								<div><a href="orders.html">待收货</a></div>
-								<div><a href="orders.html">待评价</a></div>
-								<div><a href="orders.html">退货退款</a></div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
 							<!--主选项：资料修改-->
 							<p class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">资料修改</a>
@@ -120,7 +94,6 @@
 								<div><a href="password.html">修改密码</a></div>
 								<div><a href="userdata.html"><b>个人资料</b></a></div>
 								<div><a href="upload.html">上传头像</a></div>
-								<div><a href="address.html">收货管理</a></div>
 							</div>
 						</div>
 					</div>
@@ -133,7 +106,6 @@
 						<li><a href="password.html">修改密码</a></li>
 						<li class="active"><a href="#">个人资料</a></li>
 						<li><a href="upload.html">上传头像</a></li>
-						<li><a href="address.html">收货管理</a></li>
 					</ul>
 					<div class="panel-body">
 						<!--修改资料表单开始-->
@@ -163,7 +135,7 @@
 										<input id="gender-male" type="radio" name="gender" value="1">男
 									</label>
 									<label class="radio-inline">
-										<input id="gender-female" type="radio" name="gender" value="0">女
+										<input id="gender-female" type="radio"  name="gender" value="0">女
 									</label>
 								</div>
 							</div>
@@ -262,6 +234,55 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="text/javascript">
+			//自动加载 $(document).ready(function(){})
+			//一旦检测到当前页面被加载就会触发ready方法
+			$("#btn-change-info").click(function () {
+				$.ajax({
+					url:"/users/change_info",
+					type:"POST",
+					data:$("#form-change-info").serialize(),
+					dataType:"JSON",
+					success:function (json) {
+						if(json.state==200){
+							alert("用户信息成功");
+						}else{
+							alert("用户信息失败");
+						}
+
+					},
+					error:function (xhr){
+						alert("用户信息修改时产生了异常错误"+xhr.message);
+					}
+				});
+			});
+			$(document).ready(function(){
+			   $.ajax({
+				   //用户点个人资料时出来的信息
+					url:"/users/get_by_uid",
+					type:"GET",
+					data:$("#form-change-info").serialize(),
+					dataType:"JSON",
+					success:function (json) {
+						if(json.state==200){
+							$("#phone").val(json.data.phone);
+							$("#username").val(json.data.username);
+							$("#email").val(json.data.email);
+							let radio = json.data.gender==0 ? $("#gender-female"):$("#gender-male");
+                            radio.prop("checked","checked");
+                            //给某个元素添加属性及属性的值
+						}else{
+							alert("用户数据不存在");
+						}
+
+					},
+					error:function (xhr){
+						alert("查询用户信息时产生未知异常"+xhr.status);
+					}
+				});
+			})
+
+		</script>
 	</body>
 
 </html>

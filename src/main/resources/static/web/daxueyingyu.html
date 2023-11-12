@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--edge浏览器H5兼容设置-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--360浏览器H5兼容设置-->
+    <meta name="renderer" content="webkit" />
+    <title>精品课程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--导入核心文件-->
+    <script src="../bootstrap3/js/holder.js"></script>
+    <link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+    <!-- 字体图标 -->
+    <link rel="stylesheet" href="../bootstrap3/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="../css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../css/top.css" />
+    <link rel="stylesheet" type="text/css" href="../css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/product.css" />
+    <link rel="stylesheet" type="text/css" href="../css/imgmove.css" />
+    <script src="../js/product.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/imgmove.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--头部-->
+<header class="header">
+    <!--精品logo-->
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <!--快捷选项-->
+        <div class="col-md-9 top-item">
+            <ul class="list-inline pull-right">
+                <li>
+                    <!--下列列表按钮 ：管理-->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span id="top-dropdown-btn"><span class="fa fa-gears"></span>&nbsp;管理 <span class="caret"></span></span>
+                        </button>
+                        <ul class="dropdown-menu top-dropdown-ul" role="menu">
+                            <li><a href="password.html">修改密码</a></li>
+                            <li><a href="userdata.html">个人资料</a></li>
+                            <li><a href="upload.html">上传头像</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="li-split">|</li>
+                <li><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!--导航 -->
+<!--分割导航和顶部-->
+<div class="row top-nav">
+    <div class="col-md-6">
+        <ul class="nav nav-pills">
+            <li>
+                <a href="#"></a>
+            </li>
+            <li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
+            <li><a href="index.html">返回首页</a></li>
+            <li><a href="notice.html">公告</a></li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <form action="search.html" class="form-inline pull-right" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="search" name="search" placeholder="请输入商品名称进行搜索">
+            </div>
+            <button type="submit" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
+        </form>
+    </div>
+</div>
+<!--头部结束-->
+<!--导航结束-->
+<!--商品信息展示开始-->
+<div class="container">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-6">
+            <div data="1" class="img-big move-img col-md-12">
+                <img id="product-image-1-big" src="../images/portal/productimg/daxueyingyu.jpg" class="img-responsive" />
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <h3 id="product-title" class="col-md-12 title-row-1">大学英语</h3>
+            <p id="product-sell-point" class="col-md-12 text-row-1"><small>中国出版社</small></p>
+            <div class="col-md-12 price-bar">
+                <small>出版社：</small> <span id="product-price">4899.00</span>
+                <div><small>帮助你更好的学习 </small></div>
+            </div>
+            <form class="form-inline product-form col-md-12" role="form">
+                <div class="col-md-12 form-space">
+                    <input class="btn btn-primary btn-lg btn-block" type="button" value="播放">
+                </div>
+                <div class="col-md-12 form-space">
+                    <button id="btn-add-to-collect" type="button" class="btn btn-default"><span class="fa fa-heart-o"></span> 加入收藏</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--商品信息展示结束-->
+    <!--售后信息开始-->
+
+    <div class="col-md-offset-1 col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">课程简介</h2>
+            </div>
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="col-md-1 saled-icon"><span class="fa fa-wrench"></span></div>
+                    <div class="col-md-11 saled-title">课程简介</div>
+                </div>
+                <div class="row">
+                    <p class="col-md-offset-1 col-md-11 saled-content">本产品全国联保，享受三包服务，质保期为：二年质保</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 saled-icon"><span class="fa fa-heartbeat"></span></div>
+                    <div class="col-md-11 saled-title">课程简介</div>
+                </div>
+                <div class="row">
+                    <p class="col-md-offset-1 col-md-11 saled-content">1.以考试大纲规定的考核知识点及能力层次为线索,按最新体例分章节进行编写。
+                        </br>每章均列有考点透视,并将每一章节可能出现的所有考核知识按考试题型编写同步跟踪强化训练题,以便考生扎实、准确掌握本章内容。
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 saled-icon"><span class="fa fa-globe"></span></div>
+                    <div class="col-md-11 saled-title">选择观看</div>
+                </div>
+                <div class="row">
+                    <INPUT TYPE="submit" value="第一集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第二集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第三集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第四集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第五集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第六集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第七集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第八集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第一集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第二集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第三集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第四集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第五集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第六集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第七集" onclick="location.href='../huang.mp4'">
+                    <INPUT TYPE="submit" value="第八集" onclick="location.href='../huang.mp4'">
+                </div><br>
+                <p></p>
+                <div class="saled-content">
+                    <small><b>权利声明：</b><br />
+                        所有商品信息、商品咨询等内容，是电脑商城重要的经营资源，未经许可，禁止非法转载使用。<br />
+                        注：本站商品信息均来自于合作方，其真实性、准确性和合法性由信息拥有者（合作方）负责。本站不提供任何保证，并不承担任何法律责任。</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <!-- 品质保障，私人定制等-->
+    <div class="text-center rights container">
+        <div class="col-md-offset-2 col-md-2">
+            <span class="fa fa-thumbs-o-up"></span>
+            <p>品质保障</p>
+        </div>
+        <div class="col-md-2">
+            <span class="fa fa-address-card-o"></span>
+            <p>私人订制</p>
+        </div>
+        <div class="col-md-2">
+            <span class="fa fa-graduation-cap"></span>
+            <p>学生特供</p>
+        </div>
+        <div class="col-md-2">
+            <span class="fa fa-bitcoin"></span>
+            <p>专属特权</p>
+        </div>
+    </div>
+</footer>
+<!--页脚开始-->
+
+<script type="text/javascript" src="../js/jquery-getUrlParam.js"></script>
+</body>
+
+</html>

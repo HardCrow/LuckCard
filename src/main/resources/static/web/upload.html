@@ -15,6 +15,7 @@
 		<script src="../bootstrap3/js/bootstrap.js"></script>
 		<!-- 字体图标 -->
 		<link rel="stylesheet" href="../bootstrap3/font-awesome-4.7.0/css/font-awesome.css" />
+		<script src="../bootstrap3/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
@@ -33,12 +34,6 @@
 				<!--快捷选项-->
 				<div class="col-md-9 top-item">
 					<ul class="list-inline pull-right">
-						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>
-						<li class="li-split">|</li>
-						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
-						<li class="li-split">|</li>
-						<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
-						<li class="li-split">|</li>
 						<li>
 							<!--下列列表按钮 ：管理-->
 							<div class="btn-group">
@@ -49,7 +44,6 @@
 									<li><a href="password.html">修改密码</a></li>
 									<li><a href="userdata.html">个人资料</a></li>
 									<li><a href="upload.html">上传头像</a></li>
-									<li><a href="address.html">收货管理	</a></li>
 								</ul>
 							</div>
 						</li>
@@ -68,11 +62,8 @@
 						<a href="#"></a>
 					</li>
 					<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
-					<li><a href="#">秒杀</a></li>
-					<li><a href="#">优惠券</a></li>
-					<li><a href="#">电脑VIP</a></li>
-					<li><a href="#">外卖</a></li>
-					<li><a href="#">超市</a></li>
+					<li><a href="index.html">返回首页</a></li>
+					<li><a href="notice.html">公告</a></li>
 				</ul>
 			</div>
 			<div class="col-md-6">
@@ -92,23 +83,6 @@
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<!--主选项：我的订单-->
-							<p class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
-							</p>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div><a href="orders.html">全部订单</a></div>
-								<div><a href="orders.html">待付款</a></div>
-								<div><a href="orders.html">待收货</a></div>
-								<div><a href="orders.html">待评价</a></div>
-								<div><a href="orders.html">退货退款</a></div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
 							<!--主选项：资料修改-->
 							<p class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">资料修改</a>
@@ -119,7 +93,6 @@
 								<div><a href="password.html">修改密码</a></div>
 								<div><a href="userdata.html">个人资料</a></div>
 								<div><a href="upload.html"><b>上传头像</b></a></div>
-								<div><a href="address.html">收货管理</a></div>
 							</div>
 						</div>
 					</div>
@@ -132,11 +105,10 @@
 						<li><a href="password.html">修改密码</a></li>
 						<li><a href="userdata.html">个人资料</a></li>
 						<li class="active"><a href="#">上传头像</a></li>
-						<li><a href="address.html">收货管理</a></li>
 					</ul>
 					<div class="panel-body">
 						<!--上传头像表单开始-->
-						<form class="form-horizontal" role="form">
+						<form id="form-change-avatar" class="form-horizon" action="/users/chang_avatar" method="post" enctype="multipart/form-data" role="form">
 							<div class="form-group">
 								<label class="col-md-2 control-label">选择头像:</label>
 								<div class="col-md-5">
@@ -149,7 +121,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
-									<input type="submit" class="btn btn-primary" value="上传" />
+									<input id="btn-change-avatar" type="button" value="上传" />
 								</div>
 							</div>
 						</form>
@@ -242,6 +214,35 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="text/javascript">
+			$(document).ready(function () {
+				let avatar =$.cookie("avatar");
+				$("img-avatar").attr("src",avatar);
+			})
+			$("#btn-change-avatar").click(function () {
+				$.ajax({
+					url:"/users/change_avatar",
+					type:"POST",
+					data:new FormData($("#form-change-avatar")[0]),
+					processData:false,
+					contentType:false,
+					dataType:"JSON",
+					success:function (json) {
+						if(json.state==200){
+							alert("头像修改成功");
+							$("#img-avatar").attr("src",json.data);
+							$.cookie("avatar",json.data,{expires:7})
+						}else{
+							alert("头像修改失败");
+						}
+
+					},
+					error:function (xhr){
+						alert("修改头像时产生了异常错误"+xhr.message);
+					}
+				});
+			});
+		</script>
 	</body>
 
 </html>

@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@Controller
 @Slf4j
 public class UserController extends BaseController {
     @Autowired
@@ -35,22 +34,17 @@ public class UserController extends BaseController {
              //前端只需要传递正确的数据给后端即可   空输入不是后端的问题
              //后端也只要输出给前端正确的json字符数据即可
          }
-         finally {
+          System.out.println("1111111111111111");
              return new JsonResult<User>(OK); //JsonResult<User> 判断是否为user对象  然后调用构造器
                                              // public JsonResult(Integer state)  下面也有解释
-         }
+
        }
 
-      @RequestMapping("/Login")
-      public  JsonResult<User> UserLogin(String account, String password){
-      try {
-          userService.login(account, password);
-      }catch (RuntimeException e){
-          log.info("出现了未知的错误："+e);  //log.info()方法必须要加引号因为是string类型
-      }
-      finally {
+      @RequestMapping("/login")
+      public  JsonResult<User> UserLogin(String useraccount, String password){
+          userService.login(useraccount, password);
           return  new JsonResult<User>(OK);   //前面和后面都有解释 这里只是调用了一个构造器
-      }
+
 
       }
     @RequestMapping("/getCard")
