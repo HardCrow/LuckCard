@@ -155,10 +155,11 @@
 					success:function (json) {
 						if(json.state==200){
 							alert("注册成功");
+							location.href="index.html";
+							$.cookie("avatar",json.data.avatar,{expire: 7});
 						}else{
 							alert("注册失败");
 						}
-
 					},
 					error:function (xhr){
 						alert("注册时产生了异常错误"+xhr.status);
