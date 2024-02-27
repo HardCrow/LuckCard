@@ -27,7 +27,6 @@
     <select id="findByGoodsName" resultMap="GoodsMap">
     SELECT * FROM goods WHERE goodsname=#{goodsname}
     </select>
-
     <insert id="AddCardGoods" parameterType="com.huang.luck.entity.LuckRecode" useGeneratedKeys="true" keyProperty="cid">
         insert into luckrecode(CardRecode,GoodsName,CreateName,ListName)
         values (#{CardRecode},#{GoodsName},#{CreateName},#{ListName})

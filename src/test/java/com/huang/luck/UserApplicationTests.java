@@ -8,10 +8,12 @@ import com.huang.luck.util.LuckTool.Md5Encryption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import redis.clients.jedis.Jedis;
 
-
+import java.util.Set;
 
 
 @SpringBootTest
@@ -53,5 +55,17 @@ public class UserApplicationTests {
        // System.out.println(userMapper.findSaltAccount("13197916220"));
         //Md5Encryption md5Encryption = new Md5Encryption();
        // System.out.println(md5Encryption.getMD5Password("123456","1D506216-92A4-4CF1-A549-127304F4015B"));
+    }
+    //redis测试
+
+    @Test
+    public  void TestPing() {
+        Jedis jedis = new Jedis("192.254.70.10",6379);
+        jedis.auth("123456");
+        System.out.println(jedis.ping());
+        Set<String> ks=jedis.keys("*");
+        System.out.println(ks);
+        jedis.set("k3","123");
+        System.out.println(jedis.get("k3"));
     }
 }
