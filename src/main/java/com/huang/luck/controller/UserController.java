@@ -6,6 +6,8 @@ import com.huang.luck.entity.Goods;
 import com.huang.luck.entity.User;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
+import com.huang.luck.service.UserServiceRedis;
+import com.huang.luck.service.ex.GoodsListNULLException;
 import com.huang.luck.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class UserController extends BaseController {
     UserService userService;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    UserServiceRedis userServiceRedis;
       @RequestMapping("/reg")
       public JsonResult<?> UserReg(User user){
          try{ userService.Reg(user);}
@@ -66,5 +70,17 @@ public class UserController extends BaseController {
         //    public JsonResult(Integer state, E data)这两个构造器即可
        //这里的OK表示200  在jsonResult的类中调用的是public JsonResult(Integer state)这个构造器
         //BaseController中if里面判断类型没有instance 200的情况，所以在BaseController里面直接return 200； 前端200表示成功
+     }
+
+     //用户不用自己输入想要拿卡的名字，点击图片后前端就直接拿到名字，等待用户输入想要拿到的卡片数，与该数字一起传入后端
+     @RequestMapping("/UserGetCard")
+    public  void RUserGetCard(String name,int price,String UserAccount){
+          if (name.equals(null)){
+             throw new GoodsListNULLException("出错了");
+          }
+        else
+          {
+              userServiceRedis.UserGetCard(name,UserAccount,price);
+          }
      }
 }
