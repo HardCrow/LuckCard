@@ -6,19 +6,17 @@ import com.huang.luck.mapper.AdminMapper;
 import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
 import com.huang.luck.service.UserServiceImpl.UserServiceImplRedis;
-import com.huang.luck.util.LuckTool.Md5Encryption;
+import com.huang.luck.service.UserServiceRedis;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @SpringBootTest
@@ -114,11 +112,67 @@ public class UserApplicationTests {
 
 
     //无法自动装配   ？？？？
-    @Autowired
+@Autowired
     AdminMapper adminMapper;
-   @Test
+   @Autowired
+    UserServiceRedis userServiceRedis;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Test
     public  void AdminCheckGoodsName(){
-       adminMapper.AdminGoodsNameCheck("迈阿密");
+
+        userServiceRedis.AdminRedisSet("火蛇",10);
+        userServiceRedis.UserGetCard("火蛇","131",4);
+        userServiceRedis.UserGetCard("火蛇","131",4);
+       //userServiceRedis.UserGetCard("火蛇","131",1);
+        //userServiceRedis.UserGetCard("火蛇","284",1);
+        userServiceRedis.UserGetCard("火蛇","284",2);
+        userServiceRedis.UserGetCard("火蛇","284",1);
+        System.out.println(stringRedisTemplate.opsForHash().entries("火蛇map").values());
+       // System.out.println(stringRedisTemplate.opsForSet().size("火蛇"));
+     //   stringRedisTemplate.opsForHash().delete("131");
+      //  stringRedisTemplate.opsForHash().delete("284");
+     //  userServiceRedis.UserGetCard("火蛇","131s",1);
     }
+
+    @Test
+    public void maps(){
+        Map<Object, Object> objectObjectMap = new HashMap<Object, Object>();
+        Map<Object, Object> objectObjectMap1 = new HashMap<Object, Object>();
+        objectObjectMap.put("111","111");
+        objectObjectMap1.put("222","222");
+        Map<Object, Object> map=(Map<Object, Object>) objectObjectMap;
+        Map<Object, Object> map1=(Map<Object, Object>) objectObjectMap1;
+        stringRedisTemplate.opsForHash().putAll("test1",map);
+        stringRedisTemplate.opsForHash().putAll("test1",map1);
+        System.out.println("值"+stringRedisTemplate.opsForHash().entries("test1"));
+
+    }
+    @Test
+    public void asdx(){
+
+    }
+
+    @Test
+    public void aad(){
+
+        stringRedisTemplate.opsForHash().put("aa","131","1,2,12,32");
+        stringRedisTemplate.opsForHash().put("aa","131","1,2,12,3s2");
+        stringRedisTemplate.opsForHash().put("ab","131","1,2,12,32");
+        System.out.println(stringRedisTemplate.opsForHash().entries("aa"));//获取map中的值
+        Collection<Object> ab = stringRedisTemplate.opsForHash().entries("ab").values();
+        ArrayList<String> list = new ArrayList<>((Collection<String>) (Collection<?>) ab);
+        list.add("12s");
+        System.out.println(list);
+        StringBuilder result = new StringBuilder();
+        result.append(list);
+        String str=result.toString();
+        stringRedisTemplate.opsForHash().put("ab","131",str);
+        System.out.println(stringRedisTemplate.opsForHash().entries("ab").values());
+    }
+
+
+
 
 }

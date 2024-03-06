@@ -1,5 +1,6 @@
 package com.huang.luck.mapper;
 
+import com.huang.luck.entity.Admin;
 import com.huang.luck.entity.Goods;
 import com.huang.luck.entity.LuckRecode;
 import com.huang.luck.entity.User;
@@ -33,8 +34,6 @@ public interface UserMapper {
                                      @Param("cardrecode")Integer CardRecode );  //查询数据中的useraccount是否为空
     Integer CountUserAccountNum(@Param("useraccount") String UserAccount);  //利用list的名字去查询有这个名字的数据条目数
     String CheckUserAccount(@Param("cardrecode")Integer CardRecode);   //利用数字去查询中奖人的名字
-
-
 
 
 }

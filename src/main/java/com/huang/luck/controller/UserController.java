@@ -12,6 +12,7 @@ import com.huang.luck.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ public class UserController extends BaseController {
     UserMapper userMapper;
     @Autowired
     UserServiceRedis userServiceRedis;
+
       @RequestMapping("/reg")
       public JsonResult<?> UserReg(User user){
          try{ userService.Reg(user);}
@@ -75,12 +77,9 @@ public class UserController extends BaseController {
      //用户不用自己输入想要拿卡的名字，点击图片后前端就直接拿到名字，等待用户输入想要拿到的卡片数，与该数字一起传入后端
      @RequestMapping("/UserGetCard")
     public  void RUserGetCard(String name,int price,String UserAccount){
-          if (name.equals(null)){
-             throw new GoodsListNULLException("出错了");
-          }
-        else
-          {
+
+
               userServiceRedis.UserGetCard(name,UserAccount,price);
-          }
+
      }
 }

@@ -7,6 +7,8 @@ import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
 
 
+import com.huang.luck.service.UserServiceImpl.UserServiceImplRedis;
+import com.huang.luck.service.UserServiceRedis;
 import com.huang.luck.util.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,16 @@ public class AdminController extends BaseController {  //这里继承例了baseC
         userService.AddCard(CreateName,Price,GoodsName,ListName);
     }
 
+
+
+    //redis1.0版本 拿去卡片
+    @Autowired
+    UserServiceRedis userServiceRedis;
+@RequestMapping("/AdminRedisSetCard")
+    public void RedisSetCard(String name,int price){
+      // if (name==)
+        userServiceRedis.AdminRedisSet(name,price);
+
+    }
 
 }
