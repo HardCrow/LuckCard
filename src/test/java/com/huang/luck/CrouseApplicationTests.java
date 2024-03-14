@@ -81,7 +81,7 @@ class LuckApplicationTests {
         user.setUserAccount("huang05");
         Goods goods = new Goods();
         goods.setGoodsName("test05");
-        userService.GetCard(user, 3, 3, goods, "test05");
+        //userService.GetCard(user, 3, 3, goods, "test05");
         //System.out.println(userService.GetCard(user, 2));
     }
 
@@ -195,10 +195,10 @@ class LuckApplicationTests {
 }
 @Test
     public void t1(){
-    adminController.RedisSetCard("ak",20);
+    adminController.RedisSetCard("火蛇",20);
     //测试传来的名字是否和数据库的是否一致的错误  如果数据库中没有就报错  但是一般的话是不会出现该错误，因为管理员船创建时候要对应数据库
     //但是以访管理员看错，然后创建错误，这里可以拦截一下
-     userController.RUserGetCard("ak",13,"131");
+     userController.RUserGetCard("火蛇",13,"131");
 }
 }
 

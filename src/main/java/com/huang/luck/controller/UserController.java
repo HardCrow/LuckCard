@@ -56,7 +56,7 @@ public class UserController extends BaseController {
        //  }
           return  new JsonResult<User>(OK);   //前面和后面都有解释 这里只是调用了一个构造器
       }
-    @RequestMapping("/getCard")
+  /*  @RequestMapping("/getCard")
     public JsonResult<User> UserGetCard(User user, Integer Money, Integer num, Goods goods, String ListName){
         //这里应该return一个json字符串
         //user数据应该是前端可以传
@@ -73,13 +73,14 @@ public class UserController extends BaseController {
        //这里的OK表示200  在jsonResult的类中调用的是public JsonResult(Integer state)这个构造器
         //BaseController中if里面判断类型没有instance 200的情况，所以在BaseController里面直接return 200； 前端200表示成功
      }
-
+*/
      //用户不用自己输入想要拿卡的名字，点击图片后前端就直接拿到名字，等待用户输入想要拿到的卡片数，与该数字一起传入后端
+    //接口也实现完成但是总感觉少了点东西
      @RequestMapping("/UserGetCard")
-    public  void RUserGetCard(String name,int price,String UserAccount){
-
-
-              userServiceRedis.UserGetCard(name,UserAccount,price);
-
+    public  JsonResult<String> RUserGetCard(String name,int price,String UserAccount){
+         String result=userServiceRedis.UserGetCard(name,UserAccount,price);
+         System.out.println(result);
+         System.out.println("Performing asynchronous task on thread: " + Thread.currentThread().getName());
+         return new JsonResult<String>(OK,result);
      }
 }

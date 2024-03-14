@@ -12,3 +12,16 @@ github 没有提交好 error: failed to push some refs to 'github.com:HardCrow/s
                 11.12日上午看了一点springboot缓存机制
                 https://www.bilibili.com/video/BV1KW411F7oX/?p=4&spm_id_from=pageDriver&vd_source=65fd0a16ad02773cdc7c5957be3cfe11
 
+
+               24. 3.11
+               现在的问题：
+                1.缓存问题。缓存击穿，缓存穿透，缓存雪崩。以及redis的配置
+                2.多线程问题，也就是多个人区抢同一个项目而产生的问题
+                3.前端问题，前端还没有搞好
+                4.通知问题，生成中奖号码后，如何通知中奖的账户
+                5.redis和mysql的数据一致性问题
+                6.redis和mysql数据一致性的问题
+
+               24.3.14
+               最近弄了一下redis的主从复制，确保单个redis宕机后数据丢失问题
+

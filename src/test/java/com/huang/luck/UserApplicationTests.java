@@ -7,6 +7,7 @@ import com.huang.luck.mapper.UserMapper;
 import com.huang.luck.service.UserService;
 import com.huang.luck.service.UserServiceImpl.UserServiceImplRedis;
 import com.huang.luck.service.UserServiceRedis;
+import com.huang.luck.util.LuckTool.NumsRandom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 @SpringBootTest
@@ -123,19 +125,24 @@ public class UserApplicationTests {
     public  void AdminCheckGoodsName(){
 
         userServiceRedis.AdminRedisSet("火蛇",10);
-        userServiceRedis.UserGetCard("火蛇","131",4);
-        userServiceRedis.UserGetCard("火蛇","131",4);
-       //userServiceRedis.UserGetCard("火蛇","131",1);
-        //userServiceRedis.UserGetCard("火蛇","284",1);
-        userServiceRedis.UserGetCard("火蛇","284",2);
-        userServiceRedis.UserGetCard("火蛇","284",1);
-        System.out.println(stringRedisTemplate.opsForHash().entries("火蛇map").values());
-       // System.out.println(stringRedisTemplate.opsForSet().size("火蛇"));
-     //   stringRedisTemplate.opsForHash().delete("131");
-      //  stringRedisTemplate.opsForHash().delete("284");
-     //  userServiceRedis.UserGetCard("火蛇","131s",1);
+        String a=  userServiceRedis.UserGetCard("火蛇","131",4);
+        System.out.println(a);
+        String b=  userServiceRedis.UserGetCard("火蛇","131",4);
+        System.out.println(b);
+       String c= userServiceRedis.UserGetCard("火蛇","121",2);
+        System.out.println(c);
+      //  String c=  userServiceRedis.UserGetCard("火蛇","121",1);
+      //  System.out.println(c);
     }
-
+@Test
+public void ads(){
+      //  stringRedisTemplate.opsForHash().put("aa","12","11");
+     //   stringRedisTemplate.opsForHash().delete("aa","12");
+    stringRedisTemplate.opsForSet().add("11", "s1", "s2", "s3");
+    stringRedisTemplate.opsForSet().add("11","13");
+    System.out.println(stringRedisTemplate.opsForSet().members("11"));
+  //  stringRedisTemplate.opsForSet().pop("11",stringRedisTemplate.opsForSet().size("11"));
+}
     @Test
     public void maps(){
         Map<Object, Object> objectObjectMap = new HashMap<Object, Object>();
@@ -173,6 +180,20 @@ public class UserApplicationTests {
     }
 
 
-
+@Test
+    public void asd(){
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+    System.out.println(NumsRandom.generateRandomNumber(10));
+      }
 
 }
