@@ -1,6 +1,10 @@
 package com.huang.luck;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.huang.luck.controller.UserController;
+import com.huang.luck.entity.PrizeRecode;
 import com.huang.luck.entity.User;
 import com.huang.luck.mapper.AdminMapper;
 import com.huang.luck.mapper.UserMapper;
@@ -112,8 +116,6 @@ public class UserApplicationTests {
     }
 
 
-
-    //无法自动装配   ？？？？
 @Autowired
     AdminMapper adminMapper;
    @Autowired
@@ -195,5 +197,40 @@ public void ads(){
     System.out.println(NumsRandom.generateRandomNumber(10));
     System.out.println(NumsRandom.generateRandomNumber(10));
       }
+
+
+    private static final String REDIS_KEY_PREFIX = "user:";
+    @Test
+    public void tt(){
+          //模拟对象序列化的过程
+
+        PrizeRecode myObject = new PrizeRecode("John", 30,"AD","22");
+        // 创建一个 ObjectMapper 实例
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String key = REDIS_KEY_PREFIX + myObject.getPrizeName();
+            // 将 Java 对象序列化为 JSON 字符串
+            String jsonString = objectMapper.writeValueAsString(myObject);
+            stringRedisTemplate.opsForValue().set(key,jsonString);
+            System.out.println("Serialized JSON: " + jsonString);
+        } catch (JsonProcessingException e) {
+            // 处理序列化异常
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void SerTest(){
+        //String json = "{\"prizer\":\"AD\",\"price\":30,\"prizeName\":\"John\",\"prizeNum\":\"22\"}";
+        String s = stringRedisTemplate.opsForValue().get("user:John");
+        try {
+            PrizeRecode prizeRecord = PrizeRecode.fromJson(s);
+            System.out.println(prizeRecord.getPrizer());
+            System.out.println(prizeRecord.getPrice());
+            System.out.println(prizeRecord.getPrizeName());
+            System.out.println(prizeRecord.getPrizeNum());}
+        catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

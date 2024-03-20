@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,8 @@ public class UserController extends BaseController {
     UserMapper userMapper;
     @Autowired
     UserServiceRedis userServiceRedis;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
       @RequestMapping("/reg")
       public JsonResult<?> UserReg(User user){
@@ -45,7 +48,6 @@ public class UserController extends BaseController {
                                              // public JsonResult(Integer state)  下面也有解释
 
        }
-
       @RequestMapping("/login")
       public  JsonResult<User> UserLogin(String account,String password){
        //  try{ userService.login(user);}
@@ -56,31 +58,22 @@ public class UserController extends BaseController {
        //  }
           return  new JsonResult<User>(OK);   //前面和后面都有解释 这里只是调用了一个构造器
       }
-  /*  @RequestMapping("/getCard")
-    public JsonResult<User> UserGetCard(User user, Integer Money, Integer num, Goods goods, String ListName){
-        //这里应该return一个json字符串
-        //user数据应该是前端可以传
-        //Money也可以传
-        //goods也可以传
-        //num和listname在创建的时候看一下可不可以扔到一个地方进行数据共享
-        //这里的话不太严谨  未完成
-        userService.GetCard(user,Money,num,goods,ListName);
-       return new JsonResult<User>(OK);
-       //这里如果报错的话不用我们自己去调用构造器
-        //spring直接报错 直接调用 public JsonResult(Throwable e)这个构造器因此我们只需要
-        //去调用public JsonResult(Integer state)
-        //    public JsonResult(Integer state, E data)这两个构造器即可
-       //这里的OK表示200  在jsonResult的类中调用的是public JsonResult(Integer state)这个构造器
-        //BaseController中if里面判断类型没有instance 200的情况，所以在BaseController里面直接return 200； 前端200表示成功
-     }
-*/
      //用户不用自己输入想要拿卡的名字，点击图片后前端就直接拿到名字，等待用户输入想要拿到的卡片数，与该数字一起传入后端
     //接口也实现完成但是总感觉少了点东西
+    //这里的接口可以实现中奖人和中奖奖品公示的方法
      @RequestMapping("/UserGetCard")
     public  JsonResult<String> RUserGetCard(String name,int price,String UserAccount){
          String result=userServiceRedis.UserGetCard(name,UserAccount,price);
-         System.out.println(result);
-         System.out.println("Performing asynchronous task on thread: " + Thread.currentThread().getName());
+      //   System.out.println(result);
+        // System.out.println("Performing asynchronous task on thread: " + Thread.currentThread().getName());
          return new JsonResult<String>(OK,result);
+     }
+     @RequestMapping("/UserPersonCheck")
+    public void UserPersonCheck(String userAccount){
+         //登入后传入userAccount然后利用这个去redis里面查询
+         //查询后前端可以直接显示了
+         //要记得设置了过期时间，后续操作还没有做
+         String s = stringRedisTemplate.opsForValue().get("user:" + userAccount);
+         System.out.println(s);
      }
 }

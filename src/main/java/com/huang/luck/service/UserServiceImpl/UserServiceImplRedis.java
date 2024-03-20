@@ -1,5 +1,8 @@
 package com.huang.luck.service.UserServiceImpl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huang.luck.entity.PrizeRecode;
 import com.huang.luck.mapper.AdminMapper;
 import com.huang.luck.service.UserServiceRedis;
 import com.huang.luck.service.ex.GoodsListNULLException;
@@ -7,6 +10,8 @@ import com.huang.luck.util.LuckTool.NumsRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+
+import java.time.Duration;
 import java.util.*;
 
 @Component
@@ -18,6 +23,8 @@ public class UserServiceImplRedis implements UserServiceRedis {
     @Autowired
     NumsRandom numsRandom;
 
+    private static final String REDIS_KEY_PREFIX = "user:";
+    Duration expiration = Duration.ofDays(7);
     //此方法是管理员去调用生成一个set结构  生成的名字就利用mysql中武器名字
     public void AdminRedisSet(String name, int price) {
         for (int i = 0; i < price; i++) {
@@ -53,7 +60,9 @@ public class UserServiceImplRedis implements UserServiceRedis {
                 System.out.println("这个是为了后面遍历加的map"+stringRedisTemplate.opsForHash().entries(name+"map"));
                 //可以在每次拿取卡片后进行判断redis中的set大小是否为0，为0则生成随机数即可然后遍历出账户传回给网页端
                 //现在该代码区每次都需要越界后才进行生成随机数并且回传给前端页面即可
-            if (stringRedisTemplate.opsForSet().size(name) != 0) {  }
+            if (stringRedisTemplate.opsForSet().size(name) != 0) {
+                //此处为空
+            }
             else {
                 String FinalNum =  NumsRandom.generateRandomNumber(price).toString();
                 Map<Object, Object> originalMap = stringRedisTemplate.opsForHash().entries(name + "map");
@@ -70,14 +79,26 @@ public class UserServiceImplRedis implements UserServiceRedis {
                     stringRedisTemplate.opsForHash().delete(member,member);
                     stringRedisTemplate.opsForSet().remove(name+member,member);
                 }
-                // System.out.println("这里是121的"+stringRedisTemplate.opsForHash().entries("121"));
-                //   System.out.println("这里是131的"+stringRedisTemplate.opsForHash().entries("131"));
-                // System.out.println("这里是set 131的"+stringRedisTemplate.opsForSet().members("火蛇131"));
-                //  System.out.println("这里是set 121的"+stringRedisTemplate.opsForSet().members("火蛇121"));
-                //  System.out.println("这里是火蛇map"+stringRedisTemplate.opsForHash().entries("火蛇map"));
+                //下面是获取了java中的Map<String,String> strinmap的键
                 for (Map.Entry<String, String> entry : stringMap.entrySet()) {
                     if (entry.getValue().contains(FinalNum)) {
-                        return entry.getKey();
+                        //如果包含finalnum，则回传给他的键
+                        //这里把中奖的所有信息都存入到一个redis的map中。
+                        //下面是准备把个人账户显示的操作
+                        PrizeRecode myObject= new PrizeRecode(entry.getKey(), price,name,FinalNum);
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        try {
+                            String key = REDIS_KEY_PREFIX + myObject.getPrizeName();
+                            // 将 Java 对象序列化为 JSON 字符串
+                            String jsonString = objectMapper.writeValueAsString(myObject);
+                            stringRedisTemplate.opsForValue().set(key,jsonString,expiration);
+                            //这里设置了3天的过期时间 后续换成钱的操作还没有写
+                         //   System.out.println("Serialized JSON: " + jsonString);
+                        } catch (JsonProcessingException e) {
+                            // 处理序列化异常
+                            e.printStackTrace();
+                        }
+                        return entry.getKey();//这里的entry.getKey()输出的就是中奖人的名字或者账户
                     }
                 }
             }
